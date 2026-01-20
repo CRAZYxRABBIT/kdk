@@ -1,12 +1,18 @@
+name: Build
 
-include:
-  - board: akdk_bt1
-    shield: split_ergo_tb_left
-    snippet: studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: akdk_bt1
-    shield: split_ergo_tb_right
-    snippet: studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: akdk_bt1
-    shield: settings_reset
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "config/**"
+      - "build.yaml"
+      - ".github/workflows/build.yml"
+  pull_request:
+    paths:
+      - "config/**"
+      - "build.yaml"
+      - ".github/workflows/build.yml"
+
+jobs:
+  build:
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v2
