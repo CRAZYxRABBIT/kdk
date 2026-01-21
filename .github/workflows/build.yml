@@ -1,8 +1,14 @@
-# .github/workflows/build-zmk.yml
-
 name: Build ZMK firmware
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3.0
+    # トラックボール機能は新しい機能が含まれることが多いため、バージョンは @main を推奨します
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      # ここで左右のシールド（キーボード）を明示的に指定します
+      build_matrix: |
+        - board: nice_nano_v2
+          shield: autokdk_left
+        - board: nice_nano_v2
+          shield: autokdk_right
